@@ -30,7 +30,11 @@ app.use(signupRouter)
 app.use(loginRouter)
 app.use(offerRouter)
 
-
+app.get("/", (req, res) => {
+    res.json({
+        message: " ENFIIIINN"
+    })
+})
 
 app.listen(process.env.PORT, () => {
     console.log("server has starded");
