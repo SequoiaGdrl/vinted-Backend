@@ -25,7 +25,6 @@ app.use(signupRouter)
 app.use(loginRouter)
 app.use(offerRouter)
 
-//test
 
 
 app.listen(3000, () => {
