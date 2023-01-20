@@ -1,9 +1,14 @@
 const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
+
+
 const app = express();
+app.use(cors());
 const mongoose = require("mongoose");
 
 mongoose.set('strictQuery', false);
-mongoose.connect("mongodb://localhost:27017/Vinted");
+mongoose.connect(process.env.MONGODB_URI);
 app.use(express.json());
 const uid2 = require("uid2");
 const SHA256 = require("crypto-js/sha256");
@@ -27,7 +32,7 @@ app.use(offerRouter)
 
 
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
     console.log("server has starded");
 
 });
