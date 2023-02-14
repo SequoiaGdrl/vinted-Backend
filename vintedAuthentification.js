@@ -16,6 +16,7 @@ const encBase = require("crypto-js/enc-base64");
 const signupRouter = require("./routes/signup");
 const loginRouter = require("./routes/login");
 const offerRouter = require("./routes/offer");
+const payRouter = require("./routes/pay");
 const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
@@ -29,6 +30,8 @@ cloudinary.config({
 app.use(signupRouter)
 app.use(loginRouter)
 app.use(offerRouter)
+app.use(payRouter)
+
 
 app.get("/", (req, res) => {
     res.json({
