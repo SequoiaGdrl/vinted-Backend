@@ -1,12 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const stripe = require("stripe")("sk_test_51MbR9WAMHww00EIPxQdlybjWqnb3RkSl5pjPVvXuLXZsb4uLzAjdDLuYohmAgZmXCkqNrRWYvO8LAE2iRM32eNbS003A8FxABW");
-const app = express();
-app.use(express.json());
 const router = express.Router();
-app.use(cors());
 
-app.post("/pay", async (req, res) => {
+router.post("/pay", async (req, res) => {
 
     const stripeToken = req.body.stripeToken;
 
