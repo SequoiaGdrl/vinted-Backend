@@ -19,7 +19,7 @@ router.post("/user/login", async (req, res) => {
 
         if (!userLogin) {
             res.status(401).json({
-                message: "Unauthorized"
+                message: "User not found"
             })
         }
 
@@ -28,9 +28,9 @@ router.post("/user/login", async (req, res) => {
         const hash2 = SHA256(userLogin.salt + password).toString(encBase64);
 
         if (hash2 === userLogin.hash) {
-            res.json("On peut se connecter");
+            res.json(userLogin);
         } else {
-            res.json("Unauthorized");
+            res.json(undefined);
         }
 
     } catch (error) {

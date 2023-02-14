@@ -25,7 +25,6 @@ router.post("/user/signup", fileUpload(), async (req, res) => {
         const salt = uid2(16);
         const hash = SHA256(salt + password).toString(encBase64);
         const token = uid2(16);
-        console.log(email);
         if (!username) {
             return res.status(400).json({
                 message: "error : username is not inform"
@@ -40,20 +39,20 @@ router.post("/user/signup", fileUpload(), async (req, res) => {
         if (user) {
 
             return res.status(400).json({
-                message: "error : email already exist"
+                message: "This email already has an account"
             })
 
         }
 
-        const avatar = await cloudinary.uploader.upload(
-            convertToBase64(req.files.avatar), {
-                folder: "/vinted/users",
-            })
+        // const avatar = await cloudinary.uploader.upload(
+        //     convertToBase64(req.files.avatar), {
+        //         folder: "/vinted/users",
+        //     })
 
         const newUser = new User({
             account: {
                 username: username,
-                avatar: avatar,
+                // avatar: avatar,
             },
             email: email,
             password: password,

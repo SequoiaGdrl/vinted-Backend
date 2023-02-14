@@ -12,53 +12,53 @@ const convertToBase64 = (file) => {
 router.post("/offer/publish", fileUpload(), isAuthenticated, async (req, res) => {
     try {
         const {
-            product_name,
-            product_description,
-            product_price,
-            marque,
-            taille,
-            etat,
-            couleur,
-            emplacement
+            title,
+            description,
+            price,
+            brand,
+            size,
+            condition,
+            color,
+            city
         } = req.body
 
         const tabDetail = [{
-                marque
+                brand
             },
             {
-                taille
+                size
             },
             {
-                etat
+                condition
             },
             {
-                couleur
+                color
             },
             {
-                emplacement
+                city
             }
         ]
 
 
         const imgUpload = await cloudinary.uploader.upload(
-            convertToBase64(req.files.product_image), {
+            convertToBase64(req.files.picture), {
                 folder: "/vinted/offers",
             }
         );
-        if (product_name.length > 50) {
+        if (title.length > 50) {
             return res.json({
                 message: "error : this name has too much characters"
             })
         };
 
-        if (product_description.length > 500) {
+        if (description.length > 500) {
             return res.json({
                 message: "error : this description has too much characters "
             });
 
         };
 
-        if (product_price > 10000) {
+        if (price > 10000) {
             return res.json({
                 message: "error : this price is too much expensive"
             })
@@ -67,16 +67,16 @@ router.post("/offer/publish", fileUpload(), isAuthenticated, async (req, res) =>
 
 
         const newOffer = new Offer({
-            product_name: product_name,
-            product_description: product_description,
-            product_price: product_price,
+            product_name: title,
+            product_description: description,
+            product_price: price,
             product_details: tabDetail,
             product_image: imgUpload,
             owner: req.user
 
         });
         await newOffer.save();
-        res.json("Offer created !!!!!!!!!!")
+        res.json(newOffer)
 
 
 
